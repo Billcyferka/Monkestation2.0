@@ -969,6 +969,23 @@ GLOBAL_LIST_INIT(layers_to_offset, list(
 /// This organ allows restyling with enamel restyling (like a fucking file or something?). It's for horns and shit
 #define EXTERNAL_RESTYLE_ENAMEL (1 << 3)
 
+//Mob Overlay Index Shortcuts for alternate_worn_layer, layers
+//Because I *KNOW* somebody will think layer+1 means "above"
+//IT DOESN'T OK, IT MEANS "UNDER"
+/// The layer underneath the suit
+#define UNDER_SUIT_LAYER (SUIT_LAYER+1)
+/// The layer underneath the head (for hats)
+#define UNDER_HEAD_LAYER (HEAD_LAYER+1)
+
+//AND -1 MEANS "ABOVE", OK?, OK!?!
+/// The layer above shoes
+#define ABOVE_SHOES_LAYER (SHOES_LAYER-1)
+/// The layer above mutant body parts
+#define ABOVE_BODY_FRONT_LAYER (BODY_FRONT_LAYER-1)
+
+/// We need gloves to layer on top of modsuit chestplates because we need the hole in the suit filled in if the user lacks a limb
+#define MOD_CHESTPLATE_LAYER (GLOVES_LAYER+0.5)
+
 /// If gravity must be present to perform action (can't use pens without gravity)
 #define NEED_GRAVITY (1<<0)
 /// If reading is required to perform action (can't read a book if you are illiterate)
