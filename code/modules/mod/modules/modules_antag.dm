@@ -49,7 +49,7 @@
 		shield_icon = shield_icon)
 	RegisterSignal(mod.wearer, COMSIG_LIVING_CHECK_BLOCK, PROC_REF(shield_reaction))
 
-/obj/item/mod/module/energy_shield/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/energy_shield/on_part_deactivation(deleting = FALSE)
 	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
 	charges = shield.current_charges
 	qdel(shield)
@@ -92,10 +92,10 @@
 	incompatible_modules = list(/obj/item/mod/module/anti_magic)
 	required_slots = list(ITEM_SLOT_BACK)
 
-/obj/item/mod/module/anti_magic/on_suit_activation()
+/obj/item/mod/module/anti_magic/on_part_activation()
 	mod.wearer.add_traits(list(TRAIT_ANTIMAGIC, TRAIT_HOLY), MOD_TRAIT)
 
-/obj/item/mod/module/anti_magic/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/anti_magic/on_part_deactivation(deleting = FALSE)
 	mod.wearer.remove_traits(list(TRAIT_ANTIMAGIC, TRAIT_HOLY), MOD_TRAIT)
 
 /obj/item/mod/module/anti_magic/wizard
@@ -107,10 +107,10 @@
 	icon_state = "magic_neutralizer"
 	required_slots = list()
 
-/obj/item/mod/module/anti_magic/wizard/on_suit_activation()
+/obj/item/mod/module/anti_magic/wizard/on_part_activation()
 	mod.wearer.add_traits(list(TRAIT_ANTIMAGIC, TRAIT_ANTIMAGIC_NO_SELFBLOCK), MOD_TRAIT)
 
-/obj/item/mod/module/anti_magic/wizard/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/anti_magic/wizard/on_part_deactivation(deleting = FALSE)
 	mod.wearer.remove_traits(list(TRAIT_ANTIMAGIC, TRAIT_ANTIMAGIC_NO_SELFBLOCK), MOD_TRAIT)
 
 ///Insignia - Gives you a skin specific stripe.
@@ -169,10 +169,10 @@
 	incompatible_modules = list(/obj/item/mod/module/noslip)
 	required_slots = list(ITEM_SLOT_FEET)
 
-/obj/item/mod/module/noslip/on_suit_activation()
+/obj/item/mod/module/noslip/on_part_activation()
 	ADD_TRAIT(mod.wearer, TRAIT_NO_SLIP_WATER, MOD_TRAIT)
 
-/obj/item/mod/module/noslip/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/noslip/on_part_deactivation(deleting = FALSE)
 	REMOVE_TRAIT(mod.wearer, TRAIT_NO_SLIP_WATER, MOD_TRAIT)
 
 //Bite of 87 Springlock - Equips faster, disguised as DNA lock.
@@ -466,11 +466,11 @@
 	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
 	var/datum/proximity_monitor/advanced/demoraliser/demoralizer
 
-/obj/item/mod/module/demoralizer/on_suit_activation()
+/obj/item/mod/module/demoralizer/on_part_activation()
 	var/datum/demoralise_moods/module/mood_category = new()
 	demoralizer = new(mod.wearer, 7, TRUE, mood_category)
 
-/obj/item/mod/module/demoralizer/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/demoralizer/on_part_deactivation(deleting = FALSE)
 	QDEL_NULL(demoralizer)
 
 /obj/item/mod/module/infiltrator

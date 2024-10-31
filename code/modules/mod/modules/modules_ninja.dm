@@ -13,7 +13,7 @@
 	use_energy_cost = DEFAULT_CHARGE_DRAIN * 10
 	incompatible_modules = list(/obj/item/mod/module/stealth)
 	cooldown_time = 5 SECONDS
-	required_slots = list(ITEM_SLOT_BACK|ITEM_SLOT_BELT)
+	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_MASK, ITEM_SLOT_OCLOTHING|ITEM_SLOT_ICLOTHING, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET)
 	/// Whether or not the cloak turns off on bumping.
 	var/bumpoff = TRUE
 	/// The alpha applied when the cloak is on.
@@ -84,11 +84,11 @@
 	overlay_state_inactive = null
 	required_slots = list(ITEM_SLOT_HEAD|ITEM_SLOT_EYES|ITEM_SLOT_MASK)
 
-/obj/item/mod/module/welding/camera_vision/on_suit_activation()
+/obj/item/mod/module/welding/camera_vision/on_part_activation()
 	. = ..()
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_CAN_TRACK, PROC_REF(track_person))
 
-/obj/item/mod/module/welding/camera_vision/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/welding/camera_vision/on_part_deactivation(deleting = FALSE)
 	. = ..()
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_CAN_TRACK)
 
@@ -164,11 +164,11 @@
 	/// The accepted typepath we can link to.
 	var/accepted_type = /obj/item/energy_katana
 
-/obj/item/mod/module/weapon_recall/on_suit_activation()
-	ADD_TRAIT(mod.wearer, TRAIT_NOGUNS, MOD_TRAIT)
+/obj/item/mod/module/weapon_recall/on_part_activation()
+	mod.wearer.add_traits(list(TRAIT_NOGUNS, TRAIT_TOSS_GUN_HARD), MOD_TRAIT)
 
-/obj/item/mod/module/weapon_recall/on_suit_deactivation(deleting = FALSE)
-	REMOVE_TRAIT(mod.wearer, TRAIT_NOGUNS, MOD_TRAIT)
+/obj/item/mod/module/weapon_recall/on_part_deactivation(deleting = FALSE)
+	mod.wearer.remove_traits(list(TRAIT_NOGUNS, TRAIT_TOSS_GUN_HARD), MOD_TRAIT)
 
 /obj/item/mod/module/weapon_recall/on_use()
 	if(!linked_weapon)
@@ -304,7 +304,7 @@
 	/// List of all energy nets this module made.
 	var/list/energy_nets = list()
 
-/obj/item/mod/module/energy_net/on_suit_deactivation(deleting)
+/obj/item/mod/module/energy_net/on_part_deactivation(deleting)
 	for(var/obj/structure/energy_net/net as anything in energy_nets)
 		net.atom_destruction(ENERGY)
 
