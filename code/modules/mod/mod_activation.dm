@@ -129,6 +129,15 @@
 		balloon_alert(user, "[part.name] already retracted!")
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_MOD_PART_RETRACTING, user, part_datum) & MOD_CANCEL_RETRACTION)
+		return FALSE
+	if(active && part_datum.sealed)
+		if(instant)
+			seal_part(part, is_sealed = FALSE)
+		else if(!delayed_seal_part(part))
+			balloon_alert(user, "can't unseal!")
+			playsound(src, 'sound/machines/scanner/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+			return FALSE
 	REMOVE_TRAIT(part, TRAIT_NODROP, MOD_TRAIT)
 	wearer.transferItemToLoc(part, src, force = TRUE)
 	if(part_datum.overslotting)
@@ -136,7 +145,6 @@
 		if(!QDELING(wearer) && !wearer.equip_to_slot_if_possible(overslot, overslot.slot_flags, qdel_on_fail = FALSE, disable_warning = TRUE))
 			wearer.dropItemToGround(overslot, force = TRUE, silent = TRUE)
 	wearer.update_clothing(slot_flags)
-	SEND_SIGNAL(src, COMSIG_MOD_PART_RETRACTED, user, part)
 	if(!user)
 		return TRUE
 	wearer.visible_message(span_notice("[wearer]'s [part.name] retract[part.p_s()] back into [src] with a mechanical hiss."),
