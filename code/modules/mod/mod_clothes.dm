@@ -57,3 +57,38 @@
 	item_flags = IMMUTABLE_SLOW
 	item_flags = IGNORE_DIGITIGRADE
 	can_be_tied = FALSE
+/obj/item/clothing/shoes/mod/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)
+
+/obj/item/clothing/glasses/mod
+	name = "MOD glasses"
+	desc = "A pair of glasses for a MODsuit."
+	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
+	icon_state = "standard-glasses"
+	base_icon_state = "glasses"
+	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	armor_type = /datum/armor/none
+	equip_sound = null
+	pickup_sound = null
+	drop_sound = null
+
+/obj/item/clothing/glasses/mod/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)
+
+/obj/item/clothing/neck/mod
+	name = "MOD tie"
+	desc = "An tie for a MODsuit."
+	icon = 'icons/obj/clothing/modsuit/mod_clothing.dmi'
+	icon_state = "standard-tie"
+	base_icon_state = "tie"
+	worn_icon = 'icons/mob/clothing/modsuit/mod_clothing.dmi'
+	armor_type = /datum/armor/none
+	equip_sound = null
+	pickup_sound = null
+	drop_sound = null
+
+/obj/item/clothing/neck/mod/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)

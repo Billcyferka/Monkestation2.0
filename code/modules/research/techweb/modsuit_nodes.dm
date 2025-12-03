@@ -12,9 +12,19 @@
 		"mod_shell",
 		"mod_plating_standard",
 		"mod_storage",
-		"mod_welding",
-		"mod_mouthhole",
+		"mod_plasma",
 		"mod_flashlight",
+	)
+
+/datum/techweb_node/mod_equip
+	id = "equip"
+	display_name = "Modular Suit Equipment"
+	description = "More advanced modules, to improve modular suits."
+	prereq_ids = list(TECHWEB_NODE_MOD_SUIT)
+	design_ids = list(
+		"modlink_scryer",
+		"mod_tether",
+		"mod_welding",
 		"mod_longfall",
 		"mod_thermal_regulator",
 		"mod_plasma",
@@ -38,6 +48,22 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS)
 	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_ENGINEERING, RADIO_CHANNEL_SUPPLY)
 	discount_experiments = list(/datum/experiment/scanning/points/modsuit = TECHWEB_DISCOUNT_MINOR * 2)
+
+
+/datum/techweb_node/mod_service
+	id = "mod_service"
+	display_name = "Civilian Modular Suits"
+	description = "Civilian MODsuits for dignified living."
+	prereq_ids = list(TECHWEB_NODE_MOD_SUIT)
+	design_ids = list(
+		"mod_clamp",
+		"mod_safety",
+		"mod_mouthhole",
+		"mod_mister_janitor",
+		"mod_plating_portable_suit"
+	)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = TECHWEB_TIER_1_POINTS / 2)
+	announce_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SERVICE)
 
 /datum/techweb_node/mod_entertainment
 	id = "mod_entertainment"
