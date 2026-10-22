@@ -10,7 +10,6 @@
 	icon_state = "springlock"
 	complexity = 3 // it is inside every part of your suit, so
 	incompatible_modules = list(/obj/item/mod/module/springlock)
-	var/set_off = FALSE
 
 /obj/item/mod/module/springlock/on_install()
 	mod.activation_step_time *= 0.5
@@ -18,32 +17,22 @@
 /obj/item/mod/module/springlock/on_uninstall(deleting = FALSE)
 	mod.activation_step_time *= 2
 
-/obj/item/mod/module/springlock/on_part_activation()
+/obj/item/mod/module/springlock/on_suit_activation()
 	RegisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS, PROC_REF(on_wearer_exposed))
 
-/obj/item/mod/module/springlock/on_part_deactivation(deleting = FALSE)
+/obj/item/mod/module/springlock/on_suit_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_ATOM_EXPOSE_REAGENTS)
 
-///Registers the signal COMSIG_MOD_ACTIVATE and calls the proc snap_shut() after a timer
-/obj/item/mod/module/springlock/proc/snap_signal()
-	if (set_off || mod.wearer.stat == DEAD)
-		return
+///Signal fired when wearer is exposed to reagents
+/obj/item/mod/module/springlock/proc/on_wearer_exposed(atom/source, list/reagents, datum/reagents/source_reagents, methods, volume_modifier, show_message)
+	SIGNAL_HANDLER
 
-	var/found_part = FALSE
-	for (var/obj/item/part as anything in mod.get_parts())
-		// Don't snap if no parts besides the MOD itself are active
-		if (part.loc != mod && mod.get_part_datum(part)?.sealed)
-			found_part = TRUE
-			break
-
-	if (!found_part)
-		return
-
+	if(!(methods & (VAPOR|PATCH|TOUCH)))
+		return //remove non-touch reagent exposure
 	to_chat(mod.wearer, span_danger("[src] makes an ominous click sound..."))
 	playsound(src, 'sound/items/modsuit/springlock.ogg', 75, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(snap_shut)), rand(3 SECONDS, 5 SECONDS))
-	RegisterSignals(mod, list(COMSIG_MOD_ACTIVATE, COMSIG_MOD_PART_RETRACTING), PROC_REF(on_activate_spring_block))
-	set_off = TRUE
+	RegisterSignal(mod, COMSIG_MOD_ACTIVATE, PROC_REF(on_activate_spring_block), override = TRUE)
 
 ///Signal fired when wearer attempts to activate/deactivate suits
 /obj/item/mod/module/springlock/proc/on_activate_spring_block(datum/source, user)
@@ -54,7 +43,7 @@
 
 ///Delayed death proc of the suit after the wearer is exposed to reagents
 /obj/item/mod/module/springlock/proc/snap_shut()
-	UnregisterSignal(mod, list(COMSIG_MOD_ACTIVATE, COMSIG_MOD_PART_RETRACTING))
+	UnregisterSignal(mod, COMSIG_MOD_ACTIVATE)
 	if(!mod.wearer) //while there is a guaranteed user when on_wearer_exposed() fires, that isn't the same case for this proc
 		return
 	mod.wearer.visible_message("[src] inside [mod.wearer]'s [mod.name] snaps shut, mutilating the user inside!", span_userdanger("*SNAP*"))
@@ -62,21 +51,11 @@
 	playsound(mod.wearer, 'sound/effects/snap.ogg', 75, TRUE, frequency = 0.5)
 	playsound(mod.wearer, 'sound/effects/splat.ogg', 50, TRUE, frequency = 0.5)
 	mod.wearer.client?.give_award(/datum/award/achievement/misc/springlock, mod.wearer)
-
-	mod.wearer.get_bodypart(BODY_ZONE_CHEST)?.receive_damage(200, forced = TRUE, sharpness = SHARP_POINTY) // Chest always gets hit, from the back piece you're wearing
-	for (var/obj/item/part as anything in mod.get_parts())
-		if (part.loc == mod || !mod.get_part_datum(part)?.sealed)
-			continue
-
-		for (var/obj/item/bodypart/bodypart as anything in mod.wearer.get_damageable_bodyparts())
-			if (part.body_parts_covered & bodypart.body_part) // can hit chest again
-				bodypart.receive_damage(100, forced = TRUE, sharpness = SHARP_POINTY) //boggers, bogchamp, etc
-
+	mod.wearer.apply_damage(500, BRUTE, forced = TRUE, spread_damage = TRUE, sharpness = SHARP_POINTY) //boggers, bogchamp, etc
 	if(!HAS_TRAIT(mod.wearer, TRAIT_NODEATH))
 		mod.wearer.investigate_log("has been killed by [src].", INVESTIGATE_DEATHS)
 		mod.wearer.death() //just in case, for some reason, they're still alive
 	flash_color(mod.wearer, flash_color = "#FF0000", flash_time = 10 SECONDS)
-	set_off = FALSE
 
 ///Corpse Exoskeleton - allows your MODsuit to stand up right whilst the person inside is dead. Great for MOD AIs, I guess!
 /obj/item/mod/module/magboot/corpse_exoskeleton // hey. if the work was done for me, why not repurpose magboots?

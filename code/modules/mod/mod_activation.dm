@@ -187,7 +187,7 @@
 	//deploy the control unit
 	if(original_active_status)
 		if(delayed_activation())
-			playsound(src, 'sound/machines/synth/synth_no.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = 6000)
+			playsound(src, 'sound/machines/synth_no.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = 6000)
 			to_chat(wearer, span_notice("Control unit offline. Module capability removed."))
 		else
 			activating = FALSE
@@ -211,9 +211,9 @@
 
 	if(!original_active_status)
 		if(delayed_activation())
-			playsound(src, 'sound/machines/synth/synth_yes.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = 6000)
+			playsound(src, 'sound/machines/synth_yes.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE, frequency = 6000)
 			if(!malfunctioning)
-				wearer.playsound_local(get_turf(src), 'sound/vehicles/mecha/nominal.ogg', 50)
+				wearer.playsound_local(get_turf(src), 'sound/mecha/nominal.ogg', 50)
 		else
 			activating = FALSE
 			for(var/obj/item/sealed_part as anything in sealed_parts)
@@ -266,7 +266,6 @@
 		part.max_heat_protection_temperature = null
 		part.alternate_worn_layer = part_datum.unsealed_layer
 	wearer.update_clothing(part.slot_flags)
-	wearer.update_obscured_slots(part.visor_flags_inv)
 	if((part.clothing_flags & (MASKINTERNALS|HEADINTERNALS)) && wearer.invalid_internals())
 		wearer.cutoff_internals()
 	if(!active)
