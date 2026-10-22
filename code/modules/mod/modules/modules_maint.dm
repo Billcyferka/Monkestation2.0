@@ -100,10 +100,10 @@
 		if("autotrigger")
 			autotrigger = text2num(value)
 
-/obj/item/mod/module/magboot/corpse_exoskeleton/on_suit_activation()
+/obj/item/mod/module/magboot/corpse_exoskeleton/on_part_activation()
 	RegisterSignal(mod.wearer, COMSIG_LIVING_HEALTH_UPDATE, PROC_REF(health_check))
 
-/obj/item/mod/module/magboot/corpse_exoskeleton/on_suit_deactivation(deleting)
+/obj/item/mod/module/magboot/corpse_exoskeleton/on_part_deactivation(deleting)
 	UnregisterSignal(mod.wearer, COMSIG_LIVING_HEALTH_UPDATE)
 
 /obj/item/mod/module/magboot/corpse_exoskeleton/proc/health_check()

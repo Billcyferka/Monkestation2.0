@@ -57,9 +57,6 @@
 	item_flags = IMMUTABLE_SLOW
 	item_flags = IGNORE_DIGITIGRADE
 	can_be_tied = FALSE
-/obj/item/clothing/shoes/mod/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)
 
 /obj/item/clothing/glasses/mod
 	name = "MOD glasses"
@@ -73,10 +70,6 @@
 	pickup_sound = null
 	drop_sound = null
 
-/obj/item/clothing/glasses/mod/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)
-
 /obj/item/clothing/neck/mod
 	name = "MOD tie"
 	desc = "An tie for a MODsuit."
@@ -88,7 +81,3 @@
 	equip_sound = null
 	pickup_sound = null
 	drop_sound = null
-
-/obj/item/clothing/neck/mod/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NO_SPEED_POTION, INNATE_TRAIT)

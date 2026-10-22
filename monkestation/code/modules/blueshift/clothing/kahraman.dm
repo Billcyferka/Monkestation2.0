@@ -137,7 +137,7 @@
 		/obj/item/analyzer,
 		/obj/item/storage/medkit,
 	)
-	skins = list(
+	variants = list(
 		"colonist" = list(
 			MOD_ICON_OVERRIDE = 'monkestation/code/modules/blueshift/icons/modsuits/mod.dmi',
 			MOD_WORN_ICON_OVERRIDE = 'monkestation/code/modules/blueshift/icons/modsuits/mod_worn.dmi',

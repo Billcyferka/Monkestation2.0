@@ -21,7 +21,7 @@
 		/obj/item/melee/baton,
 		/obj/item/gun,
 	)
-	skins = list(
+	variants = list(
 		"waffles" = list(
 			MOD_ICON_OVERRIDE = 'icons/obj/clothing/modsuit/mod_clothing.dmi',
 			MOD_WORN_ICON_OVERRIDE = 'icons/mob/clothing/worn_modsuit.dmi',

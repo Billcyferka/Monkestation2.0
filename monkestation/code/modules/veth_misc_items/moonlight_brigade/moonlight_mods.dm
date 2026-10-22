@@ -27,7 +27,7 @@
 		/obj/item/shield/energy,
 	)
 
-	skins = list(
+	variants = list(
 		"brigadecom" = list(
 			MOD_ICON_OVERRIDE = 'monkestation/code/modules/veth_misc_items/moonlight_brigade/brigade_icons.dmi',
 			MOD_WORN_ICON_OVERRIDE = 'monkestation/code/modules/veth_misc_items/moonlight_brigade/brigade_onmob.dmi',

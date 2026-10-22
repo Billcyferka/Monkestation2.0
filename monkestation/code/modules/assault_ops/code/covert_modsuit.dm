@@ -36,7 +36,7 @@
 		/obj/item/melee/energy/sword,
 		/obj/item/shield/energy,
 	)
-	skins = list(
+	variants = list(
 		"stealth" = list(
 			MOD_ICON_OVERRIDE = 'monkestation/code/modules/assault_ops/icons/modsuits/mod.dmi',
 			MOD_WORN_ICON_OVERRIDE = 'monkestation/code/modules/assault_ops/icons/modsuits/wornmod.dmi',

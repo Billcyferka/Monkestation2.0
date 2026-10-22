@@ -355,26 +355,6 @@
 	playsound(mod.wearer, 'sound/effects/ping_hit.ogg', vol = 75, vary = TRUE, extrarange = MEDIUM_RANGE_SOUND_EXTRARANGE) // Should be audible for the radius of the sonar
 	to_chat(mod.wearer, span_notice("You slam your fist into the ground, sending out a sonic wave that detects [creatures_detected] living beings nearby!"))
 
-/obj/item/mod/module/shove_blocker
-	name = "MOD bulwark module"
-	desc = "Layers upon layers of shock dampening plates, just to stop you from getting shoved into a wall by an angry mob."
-	icon_state = "bulwark"
-	complexity = 3
-	incompatible_modules = list(/obj/item/mod/module/shove_blocker)
-	required_slots = list(ITEM_SLOT_OCLOTHING)
-
-/obj/item/mod/module/shove_blocker/on_part_activation()
-	mod.wearer.add_traits(list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED, TRAIT_NO_STAGGER, TRAIT_NO_THROW_HITPUSH), MOD_TRAIT)
-
-/obj/item/mod/module/shove_blocker/on_part_deactivation(deleting = FALSE)
-	mod.wearer.remove_traits(list(TRAIT_BRAWLING_KNOCKDOWN_BLOCKED, TRAIT_NO_STAGGER, TRAIT_NO_THROW_HITPUSH), MOD_TRAIT)
-
-/obj/item/mod/module/shove_blocker/locked
-	name = "superglued MOD bulwark module"
-	desc = "Layers upon layers of shock dampening plates, just to stop you from getting shoved into a wall by an angry mob. Good luck removing this one."
-	removable = FALSE
-	complexity = 0
-
 /obj/item/mod/module/quick_cuff
 	name = "MOD restraint assist module"
 	desc = "Enhanced gauntlet grip pads that help with placing individuals in restraints more quickly. Doesn't look like they'll come off."

@@ -123,10 +123,10 @@
 	/// How many times the module has been used to force open doors.
 	var/door_hack_counter = 0
 
-/obj/item/mod/module/hacker/on_suit_activation()
+/obj/item/mod/module/hacker/on_part_activation()
 	RegisterSignal(mod.wearer, COMSIG_HUMAN_EARLY_UNARMED_ATTACK, PROC_REF(hack))
 
-/obj/item/mod/module/hacker/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/hacker/on_part_deactivation(deleting = FALSE)
 	UnregisterSignal(mod.wearer, COMSIG_HUMAN_EARLY_UNARMED_ATTACK)
 
 /obj/item/mod/module/hacker/proc/hack(mob/living/carbon/human/source, atom/target, proximity, modifiers)
@@ -165,10 +165,10 @@
 	var/accepted_type = /obj/item/energy_katana
 
 /obj/item/mod/module/weapon_recall/on_part_activation()
-	mod.wearer.add_traits(list(TRAIT_NOGUNS, TRAIT_TOSS_GUN_HARD), MOD_TRAIT)
+	mod.wearer.add_traits(list(TRAIT_NOGUNS), MOD_TRAIT)
 
 /obj/item/mod/module/weapon_recall/on_part_deactivation(deleting = FALSE)
-	mod.wearer.remove_traits(list(TRAIT_NOGUNS, TRAIT_TOSS_GUN_HARD), MOD_TRAIT)
+	mod.wearer.remove_traits(list(TRAIT_NOGUNS), MOD_TRAIT)
 
 /obj/item/mod/module/weapon_recall/on_use()
 	if(!linked_weapon)

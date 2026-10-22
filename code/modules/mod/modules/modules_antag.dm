@@ -36,7 +36,7 @@
 	. = ..()
 	charges = max_charges
 
-/obj/item/mod/module/energy_shield/on_suit_activation()
+/obj/item/mod/module/energy_shield/on_part_activation()
 	mod.AddComponent(\
 		/datum/component/shielded, \
 		max_charges = max_charges, \
@@ -193,7 +193,7 @@
 /obj/item/mod/module/springlock/bite_of_87/on_uninstall(deleting = FALSE)
 	mod.activation_step_time *= 10
 
-/obj/item/mod/module/springlock/bite_of_87/on_suit_activation()
+/obj/item/mod/module/springlock/bite_of_87/on_part_activation()
 	..()
 	if(check_holidays(APRIL_FOOLS) || prob(1))
 		mod.set_mod_color("#b17f00")
@@ -370,12 +370,12 @@
 	if(mod.slot_flags & current_slot)
 		current_slot = last_equipped_slot || mod.slot_flags
 
-/obj/item/mod/module/chameleon/on_suit_activation()
+/obj/item/mod/module/chameleon/on_part_activation()
 	undo_disguise()
 	if(current_disguise)
 		mod.wearer?.balloon_alert(mod.wearer, "mod undisguised")
 
-/obj/item/mod/module/chameleon/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/chameleon/on_part_deactivation(deleting = FALSE)
 	if(deleting)
 		return
 	disguise()
@@ -484,7 +484,7 @@
 	incompatible_modules = list(/obj/item/mod/module/infiltrator, /obj/item/mod/module/welding)
 	required_slots = list(ITEM_SLOT_FEET, ITEM_SLOT_HEAD, ITEM_SLOT_OCLOTHING)
 	/// List of traits added when the suit is activated
-	var/list/traits_to_add = list(TRAIT_SILENT_FOOTSTEPS, TRAIT_UNKNOWN, TRAIT_HEAD_INJURY_BLOCKED)
+	var/list/traits_to_add = list(TRAIT_SILENT_FOOTSTEPS, TRAIT_UNKNOWN)
 
 /obj/item/mod/module/infiltrator/on_install()
 	ADD_TRAIT(mod, TRAIT_EXAMINE_SKIP, REF(src))
@@ -492,7 +492,7 @@
 /obj/item/mod/module/infiltrator/on_uninstall(deleting = FALSE)
 	REMOVE_TRAIT(mod, TRAIT_EXAMINE_SKIP, REF(src))
 
-/obj/item/mod/module/infiltrator/on_suit_activation()
+/obj/item/mod/module/infiltrator/on_part_activation()
 	mod.wearer.add_traits(list(TRAIT_SILENT_FOOTSTEPS, TRAIT_UNKNOWN), MOD_TRAIT)
 	RegisterSignal(mod.wearer, COMSIG_TRY_MODIFY_SPEECH, PROC_REF(on_speech_modification))
 	var/obj/item/organ/internal/tongue/user_tongue = mod.wearer.get_organ_slot(ORGAN_SLOT_TONGUE)
@@ -501,7 +501,7 @@
 	if(istype(head_cover))
 		head_cover.flash_protect = FLASH_PROTECTION_WELDER
 
-/obj/item/mod/module/infiltrator/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/infiltrator/on_part_deactivation(deleting = FALSE)
 	mod.wearer.remove_traits(list(TRAIT_SILENT_FOOTSTEPS, TRAIT_UNKNOWN), MOD_TRAIT)
 	UnregisterSignal(mod.wearer, COMSIG_TRY_MODIFY_SPEECH)
 	var/obj/item/organ/internal/tongue/user_tongue = mod.wearer.get_organ_slot(ORGAN_SLOT_TONGUE)
@@ -556,10 +556,10 @@
 	. = ..()
 	UnregisterSignal(mod.wearer, list(COMSIG_LIVING_MOB_BUMP, COMSIG_ATOM_BUMPED, COMSIG_MOB_FIRED_GUN))
 
-/obj/item/mod/module/stealth/wraith/on_suit_activation()
+/obj/item/mod/module/stealth/wraith/on_part_activation()
 	start_stealth()
 
-/obj/item/mod/module/stealth/wraith/on_suit_deactivation(deleting)
+/obj/item/mod/module/stealth/wraith/on_part_deactivation(deleting)
 	UnregisterSignal(mod.wearer, list(COMSIG_LIVING_UNARMED_ATTACK, COMSIG_MOB_ITEM_ATTACK, COMSIG_ATOM_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_ATOM_HULK_ATTACK, COMSIG_ATOM_ATTACK_PAW, COMSIG_CARBON_CUFF_ATTEMPTED, COMSIG_LIVING_MOB_BUMP, COMSIG_ATOM_BUMPED, COMSIG_MOB_FIRED_GUN))
 	animate(mod.wearer, alpha = 255, time = 1.5 SECONDS)
 	stealth_active = FALSE

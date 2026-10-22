@@ -717,7 +717,7 @@
 		balloon_alert(user, "hat already attached!")
 		return
 	if(mod.wearer.transferItemToLoc(hitting_item, src, force = FALSE, silent = TRUE))
-		attached_hat = hat
+		attached_hat = hitting_item
 		var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
 		if(istype(helmet))
 			former_flags = helmet.flags_cover
@@ -821,12 +821,12 @@
 	use_energy_cost = DEFAULT_CHARGE_DRAIN
 	incompatible_modules = list(/obj/item/mod/module/shock_absorber)
 
-/obj/item/mod/module/shock_absorber/on_suit_activation()
+/obj/item/mod/module/shock_absorber/on_part_activation()
 	ADD_TRAIT(mod.wearer, TRAIT_BATON_RESISTANCE, MOD_TRAIT)
 	ADD_TRAIT(mod.wearer, TRAIT_TASER_RESISTANCE, MOD_TRAIT)
 	RegisterSignal(mod.wearer, COMSIG_LIVING_MINOR_SHOCK, PROC_REF(mob_batoned))
 
-/obj/item/mod/module/shock_absorber/on_suit_deactivation(deleting)
+/obj/item/mod/module/shock_absorber/on_part_deactivation(deleting)
 	REMOVE_TRAIT(mod.wearer, TRAIT_BATON_RESISTANCE, MOD_TRAIT)
 	REMOVE_TRAIT(mod.wearer, TRAIT_TASER_RESISTANCE, MOD_TRAIT)
 	UnregisterSignal(mod.wearer, COMSIG_LIVING_MINOR_SHOCK)
@@ -846,14 +846,14 @@
 	incompatible_modules = list(/obj/item/mod/module/hearing_protection)
 	/* required_slots = list(ITEM_SLOT_HEAD) */
 
-/obj/item/mod/module/hearing_protection/on_suit_activation()
+/obj/item/mod/module/hearing_protection/on_part_activation()
 	var/obj/item/clothing/head_cover = mod.helmet /* mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES) */
 	if(istype(head_cover))
 		head_cover.AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_HEAD))
 		var/datum/component/wearertargeting/earprotection/protection = head_cover.GetComponent(/datum/component/wearertargeting/earprotection)
 		protection.on_equip(src, mod.wearer, ITEM_SLOT_HEAD)
 
-/obj/item/mod/module/hearing_protection/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/hearing_protection/on_part_deactivation(deleting = FALSE)
 	if(deleting)
 		return
 	var/obj/item/clothing/head_cover = mod.helmet /* mod.get_part_from_slot(ITEM_SLOT_HEAD) || mod.get_part_from_slot(ITEM_SLOT_MASK) || mod.get_part_from_slot(ITEM_SLOT_EYES) */

@@ -221,7 +221,7 @@
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 5
 	slot_flags = ITEM_SLOT_NECK
-	slowdown_deployed = 0
+	slowdown_active = 0
 	inbuilt_modules = list(/obj/item/mod/module/selfcleaner)
 	variants = list(
 		"psuit" = list(
@@ -2362,7 +2362,7 @@
 		/obj/item/assembly/flash,
 		/obj/item/melee/baton,
 	)
-	skins = list(
+	variants = list(
 		"praetorian" = list(
 			HELMET_FLAGS = list(
 				UNSEALED_LAYER = null,

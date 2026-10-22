@@ -39,7 +39,7 @@
 		/obj/item/gun/energy,
 		/obj/item/gun/microfusion,
 	)
-	skins = list(
+	variants = list(
 		"contractor" = list(
 			MOD_ICON_OVERRIDE = 'icons/obj/clothing/modsuit/mod_clothing.dmi',
 			MOD_WORN_ICON_OVERRIDE = 'icons/mob/clothing/worn_modsuit.dmi',

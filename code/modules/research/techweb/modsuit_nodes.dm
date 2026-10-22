@@ -20,7 +20,7 @@
 	id = "equip"
 	display_name = "Modular Suit Equipment"
 	description = "More advanced modules, to improve modular suits."
-	prereq_ids = list(TECHWEB_NODE_MOD_SUIT)
+	prereq_ids = list("mod")
 	design_ids = list(
 		"modlink_scryer",
 		"mod_tether",
@@ -54,7 +54,7 @@
 	id = "mod_service"
 	display_name = "Civilian Modular Suits"
 	description = "Civilian MODsuits for dignified living."
-	prereq_ids = list(TECHWEB_NODE_MOD_SUIT)
+	prereq_ids = list("mod")
 	design_ids = list(
 		"mod_clamp",
 		"mod_safety",
