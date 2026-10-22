@@ -127,9 +127,7 @@
 	if(SEND_SIGNAL(src, COMSIG_MOD_PART_RETRACTING, user, part_datum) & MOD_CANCEL_RETRACTION)
 		return FALSE
 	if(active && part_datum.sealed)
-		if(instant)
-			seal_part(part, is_sealed = FALSE)
-		else if(!delayed_seal_part(part))
+		if(!delayed_seal_part(part))
 			balloon_alert(user, "can't unseal!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return FALSE

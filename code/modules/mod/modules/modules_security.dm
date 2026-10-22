@@ -362,10 +362,10 @@
 	complexity = 3
 	incompatible_modules = list(/obj/item/mod/module/shove_blocker)
 
-/obj/item/mod/module/shove_blocker/on_suit_activation()
+/obj/item/mod/module/shove_blocker/on_part_activation()
 	ADD_TRAIT(mod.wearer, TRAIT_SHOVE_RESIST, MOD_TRAIT)
 
-/obj/item/mod/module/shove_blocker/on_suit_deactivation(deleting = FALSE)
+/obj/item/mod/module/shove_blocker/on_part_deactivation(deleting = FALSE)
 	REMOVE_TRAIT(mod.wearer, TRAIT_SHOVE_RESIST, MOD_TRAIT)
 
 /obj/item/mod/module/shove_blocker/locked
